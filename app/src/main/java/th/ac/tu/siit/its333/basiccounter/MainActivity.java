@@ -5,27 +5,39 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set onClick method of this object to be executed when the Increase button is clicked.
+        Button btInc = (Button)findViewById(R.id.btInc);
+        btInc.setOnClickListener(this);
+
+        // Set onClick method of this object to be executed when the Decrease button is clicked.
+        Button btDec = (Button)findViewById(R.id.btDec);
+        btDec.setOnClickListener(this);
     }
 
     int counter = 0;
 
-    public void incClicked(View v) {
-        counter++;
-        TextView tv = (TextView)findViewById(R.id.tvOutput);
-        tv.setText(Integer.toString(counter));
-    }
-
-    public void decClicked(View v) {
-        counter--;
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btInc:
+                counter++;
+                break;
+            case R.id.btDec:
+                counter--;
+                break;
+        }
         TextView tv = (TextView)findViewById(R.id.tvOutput);
         tv.setText(Integer.toString(counter));
     }
